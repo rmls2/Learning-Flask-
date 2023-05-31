@@ -1,0 +1,20 @@
+para odebug do flask basta passar a flag: --debug
+
+flusk run --debug
+
+templates - paginas de html do flask 
+static - onde fica os arquivos css, js, imagens que a aplicação usa
+url_for () - função auxiliar para gerar o local apropriado do arquivo.
+
+exemplo: <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+
+o primeiro argumento diz ao interpretador que eu estou vinculado a um arquivo estático, o segundo diz qual o caminho do arquivo dentro do diretório static.
+
+bootstrap - kit de ferramentas que nos provê uma forma de estilizar nosso código de maneira mais fácil do que o css.
+
+é possível evitar a criação de código repetitivo como um modelo base usando jinja, usando seu modelo de herança dos quais os códigos html irão herdar.
+
+Criamos um arquivo base.html. Sobre esse arquivo: 
+
+As tags <meta> fornecem informações para o navegador da Web, a tag <link> vincula os arquivos CSS do Bootstrap e as tags <script> são links para o código JavaScript que permite alguns recursos adicionais do Bootstrap, verifique a documentação do Bootstrap para obter mais informações.
+
