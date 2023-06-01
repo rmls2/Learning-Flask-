@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 
 app = Flask(__name__)
 
@@ -6,9 +6,13 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/upload')
+@app.route('/upload/',  methods=["POST", "GET"])
 def upload():
-    return render_template('upload.html')
+
+    if request.method == 'GET':
+        return render_template('upload.html')
+    else:
+        return 'okk'
 
 def teste_1():
     return "<h2> teste_1</h2>"
