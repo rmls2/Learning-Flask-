@@ -12,7 +12,9 @@ def upload():
     if request.method == 'GET':
         return render_template('upload.html')
     else:
-        return 'okk'
+        file_type = type(request.form['arquivo'])
+
+        return f'okk{file_type}'
 
 def teste_1():
     return "<h2> teste_1</h2>"
@@ -29,7 +31,7 @@ app.add_url_rule('/teste', 'teste_2', teste_1)
 @app.route('/hello/')
 @app.route('/hello/<nome>/<int:postID>')
 @app.route('/hello/<nome>/')
-def func_dinamica(nome='', postID= -1):
+def func_dinamica(nome='', postID= -1):  #os argumentos dentro dafunção decorada só virão daquilo que vem da URL
 
     if postID > 0:
         return f'esse é o meu numero da sorte: {postID}'
