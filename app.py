@@ -14,7 +14,7 @@ def upload():
     else:
         file_type = type(request.form['arquivo'])
 
-        return f'okk{file_type}'
+        return f'okk'
 
 def teste_1():
     return "<h2> teste_1</h2>"
