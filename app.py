@@ -19,11 +19,7 @@ def botao():
     resposta_email = request.form['email']
     resposta_senha = request.form['senha']
 
-<<<<<<< HEAD
-        return f'okk'
-=======
     return f'essa é {resposta_email} e {resposta_senha}'
->>>>>>> d619614 (.)
 
     
 def teste_1():
