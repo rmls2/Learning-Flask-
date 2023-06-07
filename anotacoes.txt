@@ -1,6 +1,10 @@
 para odebug do flask basta passar a flag: --debug
 
-flusk run --debug
+para chamar o flask sem definir a main:
+
+1. export FLASK_APP=<nome-do-arquiv0>
+
+2. flusk run --debug
 
 templates - paginas de html do flask 
 static - onde fica os arquivos css, js, imagens que a aplicação usa

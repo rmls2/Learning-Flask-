@@ -6,16 +6,26 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/upload/',  methods=["POST", "GET"])
-def upload():
-
+@app.route('/login/',  methods=["POST", "GET"])
+def login():
     if request.method == 'GET':
         return render_template('upload.html')
     else:
-        file_type = type(request.form['arquivo'])
+        email = request.form['email']
+        senha = request.form['senha']
+        return render_template('botao.html', email=email, senha=senha)
+@app.route('/botao/',  methods=["POST", "GET"])
+def botao():
+    resposta_email = request.form['email']
+    resposta_senha = request.form['senha']
 
+<<<<<<< HEAD
         return f'okk'
+=======
+    return f'essa é {resposta_email} e {resposta_senha}'
+>>>>>>> d619614 (.)
 
+    
 def teste_1():
     return "<h2> teste_1</h2>"
 
@@ -23,7 +33,7 @@ def teste_2():
     return "<h2> teste_2</h2>"
 
 # essa função mapeia a url /teste para o retorno da função teste_1 
-app.add_url_rule('/teste', 'teste_2', teste_1)
+app.add_url_rule('/teste', 'teste_2', teste_2)
 
 # Criando url dinâmica - Aula 3 
 
@@ -60,3 +70,5 @@ def user (name, adm_name=''):
 @app.route('/google')
 def redirec_google():
     return redirect('https://www.google.com/') 
+
+app.run(debug=True)
