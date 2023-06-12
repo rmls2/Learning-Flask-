@@ -9,7 +9,7 @@ def index():
 @app.route('/login/',  methods=["POST", "GET"])
 def login():
     if request.method == 'GET':
-        return render_template('upload.html')
+        return render_template('login.html')
     else:
         email = request.form['email']
         senha = request.form['senha']
@@ -67,4 +67,5 @@ def user (name, adm_name=''):
 def redirec_google():
     return redirect('https://www.google.com/') 
 
-app.run(debug=True)
+if __name__=='__main__':    
+    app.run(debug=True)
