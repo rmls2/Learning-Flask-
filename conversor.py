@@ -32,8 +32,9 @@ def create_files_folder():
         exit()
     return render_template('diretorio.html')
 
-@app.route('/conversor')
+@app.route('/conversor', methods=['POST'])
 def converter_file():
+    filename = request.form.get('arquivo')
      # Informa onde vai ficar o arquivo txt
     dir_arq_conv = os.path.join(TXT_FOLDER, filename.replace(".pdf",".txt"))
 
@@ -49,10 +50,10 @@ def converter_file():
         print("Sistema operacional não reconhecido")
         exit()
 
-    st.write("Arquivo convertido com sucesso!")
+"""     st.write("Arquivo convertido com sucesso!")
 
     # Criando o botão de download
     with open(r""+dir_arq_conv , encoding="utf-8" , errors='ignore') as f:
-        st.download_button(f'Baixar o arquivo', f, filename.replace(".pdf",".txt"))
+        st.download_button(f'Baixar o arquivo', f, filename.replace(".pdf",".txt")) """
 
 app.run(debug=True)
