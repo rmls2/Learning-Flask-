@@ -11,7 +11,7 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/diretorio')
+@app.route('/upload-pdf')
 def create_files_folder():
     global PDF_FOLDER 
     global TXT_FOLDER 
@@ -31,23 +31,35 @@ def create_files_folder():
     else:
         print("Sistema operacional não reconhecido")
         exit()
-    return render_template('diretorio.html')
+    return render_template('conversao.html')
 
 @app.route('/conversor', methods=['POST'])
 def converter_file():
-    
+    # recupera o arquivo enviado no request usando o post
     arquivo = request.files['arquivo']
+    #salva o nome do arquivo na variável filename
     filename = arquivo.filename
-     # Informa onde vai ficar o arquivo txt
-    dir_arq_conv = os.path.join('files/pdf/', filename.replace(".pdf",".txt"))
 
-    # Executa a ferramenta xpdf conforme o sistema operacional
-    # pdftotext <arquivo pdf> <diretorio e o nome do arquivo a ser convertido>
-    if platform.system == 'Linux':
-        if subprocess.run(['pdftotext', 'files/pdf'+filename, dir_arq_conv ], capture_output = True):
-        # os.remove(PDF_FOLDER+"//"+filename)
-            return 'ok'
-    return 'falhou'
+    # Salva o arquivo no sistema de arquivos
+    arquivo.save(filename)
+
+    # Move o arquivo para o diretório adequado
+    shutil.move(filename, 'files/pdf/')
+
+    # Cria o caminho do arquivo de texto
+    dir_arq_conv = os.path.join('files/txt/', filename.replace(".pdf", ".txt"))
+
+    # Executar o comando pdftotext para converter o texto, o resultado da execução é capturado com capture_output=True
+    # Verifica se a conversão foi bem-sucedida, verificando o código de retorno do comando pdftotext usando .returncode.
+    # Se for igual a 0, significa que a conversão foi concluída com sucesso
+    if subprocess.run(['pdftotext', 'files/pdf/' + filename, dir_arq_conv], capture_output=True).returncode == 0:
+        # Remover o arquivo PDF após a conversão 
+
+        os.remove('files/pdf/' + filename)
+        return '<h1>Convertido com sucesso</h1>'
+    else:
+        return 'A conversão falhou'
+
     """  if platform.system == 'Windows':
         if subprocess.run(['pdftotext', PDF_FOLDER+"\\"+filename, dir_arq_conv ], capture_output = True):
             os.remove(PDF_FOLDER+"\\"+filename)
@@ -55,10 +67,5 @@ def converter_file():
         print("Sistema operacional não reconhecido")
         exit() """
 
-"""     st.write("Arquivo convertido com sucesso!")
-
-    # Criando o botão de download
-    with open(r""+dir_arq_conv , encoding="utf-8" , errors='ignore') as f:
-        st.download_button(f'Baixar o arquivo', f, filename.replace(".pdf",".txt")) """
 
 app.run(debug=True)
