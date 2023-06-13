@@ -24,6 +24,7 @@ def create_files_folder():
     if platform.system() == "Linux":
         PDF_FOLDER = "files//pdf"
         TXT_FOLDER = "files//txt"
+        
     elif platform.system() == "Windows":
         PDF_FOLDER = "files\\pdf"
         TXT_FOLDER = "files\\txt"
@@ -34,21 +35,25 @@ def create_files_folder():
 
 @app.route('/conversor', methods=['POST'])
 def converter_file():
-    filename = request.form.get('arquivo')
+    
+    arquivo = request.files['arquivo']
+    filename = arquivo.filename
      # Informa onde vai ficar o arquivo txt
-    dir_arq_conv = os.path.join(TXT_FOLDER, filename.replace(".pdf",".txt"))
+    dir_arq_conv = os.path.join('files/pdf/', filename.replace(".pdf",".txt"))
 
     # Executa a ferramenta xpdf conforme o sistema operacional
     # pdftotext <arquivo pdf> <diretorio e o nome do arquivo a ser convertido>
     if platform.system == 'Linux':
-        if subprocess.run(['pdftotext', PDF_FOLDER+"//"+filename, dir_arq_conv ], capture_output = True):
-            os.remove(PDF_FOLDER+"//"+filename)
-    elif platform.system == 'Windows':
+        if subprocess.run(['pdftotext', 'files/pdf'+filename, dir_arq_conv ], capture_output = True):
+        # os.remove(PDF_FOLDER+"//"+filename)
+            return 'ok'
+    return 'falhou'
+    """  if platform.system == 'Windows':
         if subprocess.run(['pdftotext', PDF_FOLDER+"\\"+filename, dir_arq_conv ], capture_output = True):
             os.remove(PDF_FOLDER+"\\"+filename)
     else:
         print("Sistema operacional não reconhecido")
-        exit()
+        exit() """
 
 """     st.write("Arquivo convertido com sucesso!")
 
