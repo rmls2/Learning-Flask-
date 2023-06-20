@@ -28,14 +28,14 @@ def teste_1():
 def teste_2():
     return "<h2> teste_2</h2>"
 
-# essa função mapeia a url /teste para o retorno da função teste_1 
+# essa função mapeia a url /teste para o retorno da função teste_2 
 app.add_url_rule('/teste', 'teste_2', teste_2)
 
 # Criando url dinâmica - Aula 3 
 
 #essa rota mapeia a func_dinamica() para o valor default
 @app.route('/hello/')
-@app.route('/hello/<nome>/<int:postID>')
+@app.route('/hello/<int:postID>')
 @app.route('/hello/<nome>/')
 def func_dinamica(nome='', postID= -1):  #os argumentos dentro dafunção decorada só virão daquilo que vem da URL
 
